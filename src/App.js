@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import Hello from "./Hello";
 import './App.css';
+import Wrapper from "./Wrapper";
+import Counter from "./Counter";
+import InputSample from "./InputSample";
 
+
+// 주석
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Wrapper>
+      <InputSample/>
+      <Counter />
+      <div >
+          <Hello name="react" color="red" isSpecial={true}/>
+          <Hello isSpecial={true}/>
+          <Hello isSpecial={false}/>
+          <div></div>
+      </div>
+    </Wrapper>
   );
 }
 
