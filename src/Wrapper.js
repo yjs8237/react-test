@@ -8,8 +8,6 @@ function Wrapper(props) {
   return (
     <>
       <Wrapper2>
-        <p>111</p>
-        <div>하나더111</div>
         {props.children}
       </Wrapper2>
     </>

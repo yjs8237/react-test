@@ -1,40 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState , useRef } from 'react';
+import * as common from './common.js'
+
 
 function InputSample(props) {
     const [data, setData] = useState({});
+    
+    const [inputs, setInputs] = useState({
+        name_in: '',
+        nickName: '', 
+    });
+
+    const nameInputTag = useRef();
+
+    const {name_in, nickName} = inputs;
+
     const onChange = (e) => {
-        if(data.id === undefined) {
-            data.id = 1;
-        } else {
-            data.id = 1;
-        }
-        if(data.value === undefined) {
-            data.value = "";
-        }
-        data.value = e.target.value;
-        console.log(data.id);
-        let newData = data;
-        setData((prevState) => ({
-            ...prevState,
-            id: 2
-        }));
-    }
+        const {name, value} = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value,  // name 변수 처리되어 key 값을 name 변수 값에 맞는 데이터를 변경 한다.
+        });
+        console.log("name " + name + " value " + value);
+    };
+
     const onReset = () => {
-        data.id = 0;
-        let newData = data;
-        console.log(newData.id);
-        setData((prevState) => ({
-            ...prevState,
-            id: 3,
-            value: ""
-        }));
-    }
+        setInputs({
+            name_in: '',
+            nickName: "",
+        });
+        nameInputTag.current.focus();
+    };
+
     return (
         <div>
-            <input onChange={onChange} value={data.value === undefined ? "" : data.value}></input>
+            <input 
+            name="name_in" 
+            placeholder='이름' 
+            onChange={onChange} 
+            value={name_in}
+            ref={nameInputTag}
+            ></input>
+            <input name="nickName" placeholder='닉네임' onChange={onChange} value={nickName} ></input>
             <button onClick={onReset}>초기화</button>
             <div>
                 <b>value : {data.id}</b>
+                {inputs.name_in} ({inputs.nickName})
             </div>
         </div>
     );
