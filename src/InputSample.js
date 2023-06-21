@@ -20,6 +20,10 @@ function InputSample(props) {
             ...inputs,
             [name]: value,  // name 변수 처리되어 key 값을 name 변수 값에 맞는 데이터를 변경 한다.
         });
+        setData({
+            id: 0,
+            name: "name"
+        });
         console.log("name " + name + " value " + value);
     };
 
@@ -28,7 +32,19 @@ function InputSample(props) {
             name_in: '',
             nickName: "",
         });
+        setData({
+            id: "",
+            name: ""
+        });
         nameInputTag.current.focus();
+    };
+
+    const getNickName = () => {
+        if(inputs.nickName.length !== 0) {
+            return `(${common.comma(inputs.nickName)})`;
+        } else {
+            return ``;
+        }
     };
 
     return (
@@ -43,9 +59,11 @@ function InputSample(props) {
             <input name="nickName" placeholder='닉네임' onChange={onChange} value={nickName} ></input>
             <button onClick={onReset}>초기화</button>
             <div>
-                <b>value : {data.id}</b>
-                {inputs.name_in} ({inputs.nickName})
+                <b>value : {data.id} name : {data.name}</b>
+                <br></br>
+                {inputs.name_in} { getNickName() }
             </div>
+            
         </div>
     );
 }

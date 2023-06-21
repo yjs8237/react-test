@@ -4,14 +4,15 @@ import Wrapper from "./Wrapper";
 import Counter from "./Counter";
 import InputSample from "./InputSample";
 import UserList from "./UserList";
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import CreateUser from "./CreateUser";
 
-
+function countActiveUsers(users) {
+  console.log("counting...");
+  return users.filter(user => user.active).length;
+}
 // 주석
 function App() {
-
-
   const [users, setUsers] = useState([
     {
         id: 1,
@@ -40,47 +41,42 @@ function App() {
 
   const { username, email } = inputs;
 
-  const onChange = (e) => {
+  const onChange = useCallback(e => {
     const {name, value} = e.target;
     setInputs({
       ...inputs,
       [name]: value
     })
-  };
+  }, [inputs]);
 
   const nextId = useRef(4);
 
-  const onCreate = () => {
-
+  const onCreate = useCallback(e => {
     const user = {
       id: nextId.current,
       username: username,
       email: email
     };
-
-    setUsers([
-      ...users,
-      user
-    ]);
-
+    setUsers(users => [...users, user]);
     setInputs({
       username: "",
       email: "",
     });
-
-    console.log(nextId.current);
     nextId.current += 1;
-  };
+  }, [username, email]);
 
-  const onRemove = (userId) => {
-    setUsers(users.filter(user => user.id !== userId));
-  };
+  const onRemove = useCallback(userId => {
+    setUsers(users => users.filter(user => user.id !== userId));
+  }, []);
 
-  const onToggle = (userId) => {
-    setUsers(users.map(
+  const onToggle = useCallback((userId) => {
+    setUsers(users => users.map(
       user => user.id === userId ? { ...user, active: !user.active } : user
     ));
-  };
+  }, []);
+  
+  {/* 불필요한 렌더링을 막기위해 특정 값이 바뀔때만 함수 호출 하도록 */}
+  const count = useMemo(() => countActiveUsers(users), [users]);
 
   return (
 
@@ -92,11 +88,12 @@ function App() {
           onChange={onChange}
           onCreate={onCreate}  />
         <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
+        <div>활성 사용자 수 : {count}</div>
       </>
       
-      <InputSample/>
+      <InputSample />
       <Counter />
-      <div >
+      <div>
           <Hello name="react" color="red" isSpecial={true}/>
           <Hello isSpecial={true}/>
           <Hello isSpecial={false}/>
