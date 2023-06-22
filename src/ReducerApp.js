@@ -1,17 +1,15 @@
-import React, { useCallback, useMemo, useReducer, useRef } from 'react';
+import React, {useCallback, useMemo, useReducer, useRef, useState} from 'react';
 import CreateUser from './CreateUser';
 import UserList from './UserList';
-import { produce }  from 'immer';
-
-
+import { produce } from 'immer';
 
 function countActiveUsers(users) {
     console.log("counting...");
     return users.filter(user => user.active).length;
 }
+
 const initialState = {
-  users: [
-  ],
+  users: [],
   inputs: {
     username: "",
     email: "",
@@ -20,6 +18,13 @@ const initialState = {
 
 function reducer(state, action) {
     switch(action.type) {
+        case 'RESET_INPUT': {
+            return produce(state, (draft) => {
+                const inputs = draft.inputs;
+                inputs.username = "";
+                inputs.email = "";
+            });
+        }
         case 'CHANGE_INPUT': {
             return {
                 ...state,
@@ -31,6 +36,9 @@ function reducer(state, action) {
         }
         case 'CREATE_USER': {
             return produce(state, draft => {
+                const innerInputs = draft.inputs;
+                innerInputs.username = "";
+                innerInputs.email = "";
                 draft.users.push(action.user);
             });
             /*
@@ -78,6 +86,7 @@ function reducer(state, action) {
         default: return state;
     }
 }
+
 function ReducerApp(props) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const nextId = useRef(1);
@@ -104,6 +113,7 @@ function ReducerApp(props) {
                 email: email
             }
         });
+        
         nextId.current += 1;
     }, [username, email]);
 
