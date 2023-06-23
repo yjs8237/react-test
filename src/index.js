@@ -6,11 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import ReducerApp from './ReducerApp';
 import ContextSample from './contextSample';
 import TodoApp from './TodoApp';
+import Users from './restapi/Users';
+import UserContextApp from './restapi/UserContextApp';
+import { UsersProvider } from './restapi/UsersContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TodoApp />
+    <UsersProvider>
+      <UserContextApp />
+    </UsersProvider>
   </React.StrictMode>
 );
 
