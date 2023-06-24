@@ -1,8 +1,12 @@
 import React, { useCallback } from 'react';
-import { useTodoDispatch } from './TodoContext';
+import { useTodoDispatch, useTodoNextId, useTodoState } from './TodoContext';
 
 function TodoItem({id, text, done}) {
     const dispatch = useTodoDispatch();
+    const nextId = useTodoNextId();
+
+    nextId.current += 1;
+
     const onToggle = useCallback(() => {
         dispatch({
             type: 'TOGGLE',
@@ -16,6 +20,15 @@ function TodoItem({id, text, done}) {
             id: id
         });
     }, [dispatch, id]);
+
+    const onCreate = useCallback(() => {
+        dispatch({
+            type: 'REMOVE',
+            id: nextId.current,
+        });
+        
+    }, [dispatch, nextId]);
+    
 
     return (
         <>

@@ -1,12 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import useAsync from './UseAsync';
+import { getUser } from './apiCall';
 
 
-async function getUser(id) {
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
-    return response.data;
-}
 
 function User({ id }) {
     const [state, refetch] = useAsync(() => getUser(id), [id]);

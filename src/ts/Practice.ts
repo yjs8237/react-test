@@ -1,0 +1,5 @@
+export enum API_ACTION_TYPE {
+    IS_LOADING, SUCCESS, ERROR
+}
+
+

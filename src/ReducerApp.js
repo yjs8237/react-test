@@ -94,7 +94,7 @@ function ReducerApp(props) {
     const { username, email } = state.inputs;
 
     const count = useMemo(() => countActiveUsers(users), [users]);
-
+    
     const onChange = useCallback(e => {
         const { name, value } = e.target;
         dispatch({

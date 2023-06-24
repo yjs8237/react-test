@@ -9,12 +9,16 @@ import TodoApp from './TodoApp';
 import Users from './restapi/Users';
 import UserContextApp from './restapi/UserContextApp';
 import { UsersProvider } from './restapi/UsersContext';
+import { BrowserRouter } from 'react-router-dom';
+import RouterApp from './router/RouterApp';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UsersProvider>
-      <UserContextApp />
+      <BrowserRouter>
+        <RouterApp />
+      </BrowserRouter>
     </UsersProvider>
   </React.StrictMode>
 );
