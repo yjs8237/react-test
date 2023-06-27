@@ -14,6 +14,7 @@ function Profiles(props) {
                 <Link to="/profiles/sam">sam</Link>
                 </li>
             </ul>
+            
         </div>
     );
 }

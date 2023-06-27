@@ -7,6 +7,7 @@ function About(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get("page");
     const size = searchParams.get("size");
+    
     return (
         <div>
             여긴 어바웃

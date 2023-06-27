@@ -11,7 +11,7 @@ function RouterApp(props) {
       <div>
         <ul>
           <li>
-            <NavLink to="/">홈</NavLink>
+            <NavLink to="/" >홈</NavLink>
           </li>
           <li>
             <NavLink to="/about">어바웃</NavLink>

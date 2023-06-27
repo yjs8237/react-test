@@ -69,14 +69,6 @@ function App() {
     setUsers(users => users.filter(user => user.id !== userId));
   }, []);
 
-  const onTest = useCallback((userId) => {
-     setUsers(users => users.map(
-         user => user.id == userId ? { ...user, active: !user.active } : user
-     ));
-  });
-
-
-
   const onToggle = useCallback((userId) => {
     setUsers(users => users.map(
       user => user.id === userId ? { ...user, active: !user.active } : user
@@ -87,7 +79,6 @@ function App() {
   const count = useMemo(() => countActiveUsers(users), [users]);
 
   return (
-
     <Wrapper>
       <>
         <CreateUser 
